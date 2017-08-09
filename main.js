@@ -15,12 +15,18 @@ var input = document.querySelector("#input");
 var submit = document.querySelector("#submit");
 var resultsDisplay = document.querySelector(".mainContent");
 
-submit.addEventListener("click", ourCallback());
 
-function ourCallback(e) {
+submit.addEventListener("click", function (e) {
+
+
   // if (e.keyCode === 13) {
+  let url = "https://itunes.apple.com/search?term=";
+  url += input.value;
+  console.log(url);
 
-  axios.get(`https://itunes.apple.com/search?term==${input.value}`)
+  e.preventDefault();
+
+  axios.get(url)
     .then(function (response) {
       let results = response.data.results;
       resultsDisplay.innerHTML = " ";
@@ -49,7 +55,11 @@ function ourCallback(e) {
 
     });
 
-}
+
+
+
+});
+
   // fetch(`https://itunes.apple.com/search?term==${input.value}`)
   //   .then(function (response) {
   //     response.json().then(function (data) {
