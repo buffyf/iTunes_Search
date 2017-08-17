@@ -10,18 +10,20 @@
 
 const URL = "https://itunes.apple.com/search?term=";
 var input = document.querySelector("#input");
-var submit = document.querySelector("#submit");
 var resultsDisplay = document.querySelector(".mainContent");
 var audio = document.querySelector("audio");
 
-submit.addEventListener("click", function (e) {
-  e.preventDefault();
-  let userInput = input.value;
-  axios.get(URL + userInput)
-    .then(function (response) {
-      let results = response.data.results;
-      populateHTML(results)
-    });
+
+input.addEventListener("keypress", function (e) {
+  if (e.keyCode === 13) {
+    e.preventDefault();
+    let userInput = input.value;
+    axios.get(URL + userInput)
+      .then(function (response) {
+        let results = response.data.results;
+        populateHTML(results)
+      });
+  }
 });
 
 resultsDisplay.addEventListener("click", function (e) {
@@ -47,12 +49,9 @@ function populateHTML(res) {
             <div class="image-parent">
               <img src="${albumArtwork}">
             </div>
-
-            <div class="content-parent">
+              <button class="fa fa-play-circle-o fa-lg" type="button" value=${preview}></button>
               <p>${artistName}</p>
               <p>${trackName}</p>
-              <button type="button" value=${preview}>Play</button>
-            </div>
           </div>
          `
   }
